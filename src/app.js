@@ -1,4 +1,8 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import postRouter from '../routes/product';
 
 // const server = http.createServer((req, res) => {
 //     if (req.url === "/") {
@@ -26,39 +30,12 @@ const express = require('express');
 
 const app = express();
 
-const check = (req, res, next) => {
-    const status = true;
+// middleware
+app.use(cors());
+app.use(morgan('tiny')); // logger
+app.use(express.json());
 
-    if (status) {
-        console.log("Hello bro");
-        next();
-    } else {
-        console.log("Té ngay");
-    }
-}
-
-// app.use(check);
-
-app.get("/", (req, res) => {
-    res.send("Hello Tuan Nek");
-});
-
-app.get("/api/products", check, (req, res) => {
-    res.json([
-        {
-            id: 1, name: "Trà sữa"
-        },
-        {
-            id: 2, name: "Trà chanh"
-        }
-    ])
-})
-
-app.get("/product/:id", (req, res) => {
-    res.send({
-        id: req.params.id
-    })
-});
+app.use(postRouter);
 
 const PORT = "3001";
 app.listen(PORT, () => console.log(`Server is running port: ${PORT}`));
