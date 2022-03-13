@@ -1,8 +1,10 @@
-// const express = require('express');
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import postRouter from '../routes/product';
+import mongoose from 'mongoose';
+
+import productRouter from '../routes/product';
+import postRouter from '../routes/post';
 
 // const server = http.createServer((req, res) => {
 //     if (req.url === "/") {
@@ -35,7 +37,15 @@ app.use(cors());
 app.use(morgan('tiny')); // logger
 app.use(express.json());
 
-app.use(postRouter);
+// route
+app.use("/api", productRouter);
+app.use("/api", postRouter);
 
+// connect db
+mongoose.connect("mongodb://localhost:27017/we16309")
+    .then(() => console.log("Kết nối thành công"))
+    .catch(error => console.log(error));
+
+// connection
 const PORT = "3001";
 app.listen(PORT, () => console.log(`Server is running port: ${PORT}`));

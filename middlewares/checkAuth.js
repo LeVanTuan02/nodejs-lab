@@ -1,4 +1,4 @@
-export const check = (req, res, next) => {
+export const checkAuth = (req, res, next) => {
     const status = true;
 
     if (status) {
