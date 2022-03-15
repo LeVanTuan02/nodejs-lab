@@ -23,14 +23,6 @@ const ProductSchema = mongoose.Schema({
     },
     status: Number,
     categoryId: Number,
-    createdAt: {
-        type: Date,
-        default: new Date().toISOString()
-    },
-    updatedAt: {
-        type: Date,
-        default: new Date().toISOString()
-    }
-});
+}, { timestamps: true });
 
 export default mongoose.model('Product', ProductSchema);
