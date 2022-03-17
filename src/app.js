@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 
 import productRouter from '../routes/product';
 import postRouter from '../routes/post';
+import userRouter from '../routes/user';
+import categoryRouter from '../routes/category';
 
 // const server = http.createServer((req, res) => {
 //     if (req.url === "/") {
@@ -40,6 +42,8 @@ app.use(express.json());
 // route
 app.use("/api", productRouter);
 app.use("/api", postRouter);
+app.use("/api", userRouter);
+app.use("/api", categoryRouter);
 
 // connect db
 mongoose.connect("mongodb://localhost:27017/we16309")
@@ -47,5 +51,5 @@ mongoose.connect("mongodb://localhost:27017/we16309")
     .catch(error => console.log(error));
 
 // connection
-const PORT = "3001";
+const PORT = "8000";
 app.listen(PORT, () => console.log(`Server is running port: ${PORT}`));
