@@ -12,8 +12,10 @@ export const create = async (req, res) => {
 };
 
 export const read = async (req, res) => {
+    const populateOpt = req.query["_expand"];
+
     try {
-        const product = await ProductModel.findOne({ _id: req.params.id }).exec();
+        const product = await ProductModel.findOne({ _id: req.params.id }).populate(populateOpt).exec();
         res.json(product);
     } catch (error) {
         res.status(400).json({
@@ -23,8 +25,20 @@ export const read = async (req, res) => {
 };
 
 export const list = async (req, res) => {
+    const populateOpt = req.query["_expand"];
+
+    let sortOpt = {};
+    if (req.query["_sort"]) {
+        const sortArr = req.query["_sort"].split(",");
+        const orderArr = (req.query["_order"] || "").split(",");
+        
+        sortArr.forEach((sort, index) => {
+            sortOpt[sort] = orderArr[index] === "desc" ? -1 : 1;
+        });
+    }
+
     try {
-        const product = await ProductModel.find().exec();
+        const product = await ProductModel.find().populate(populateOpt).sort(sortOpt).exec();
         res.json(product);
     } catch (error) {
         res.status(400).json({
