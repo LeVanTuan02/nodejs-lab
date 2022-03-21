@@ -3,10 +3,10 @@ import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-import productRouter from '../routes/product';
-import postRouter from '../routes/post';
-import userRouter from '../routes/user';
-import categoryRouter from '../routes/category';
+import productRouter from './routes/product';
+import postRouter from './routes/post';
+import userRouter from './routes/user';
+import categoryRouter from './routes/category';
 
 // const server = http.createServer((req, res) => {
 //     if (req.url === "/") {
